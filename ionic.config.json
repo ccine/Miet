@@ -1,0 +1,7 @@
+{
+  "name": "EmailExtractor",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
