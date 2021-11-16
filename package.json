@@ -17,16 +17,12 @@
     "@types/react-router": "^5.1.11",
     "@types/react-router-dom": "^5.1.7",
     "body-parser": "^1.19.0",
-    "chart.js": "^3.3.2",
+    "chart.js": "^3.2.1",
     "cors": "^2.8.5",
-    "electron-squirrel-startup": "^1.0.0",
     "express": "^4.17.1",
-    "https": "^1.0.0",
     "imap": "^0.8.19",
     "ionicons": "^5.4.0",
     "mailparser": "^3.2.0",
-    "node-libcurl": "^2.3.2",
-    "openssl-nodejs": "^1.0.5",
     "react": "^17.0.1",
     "react-chartjs-2": "^3.0.3",
     "react-dom": "^17.0.1",
@@ -49,12 +45,10 @@
     "workbox-streams": "^5.1.4"
   },
   "scripts": {
-    "start": "electron-forge start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "package": "electron-forge package",
-    "make": "electron-forge make"
   },
   "eslintConfig": {
     "extends": [
@@ -75,40 +69,7 @@
     ]
   },
   "devDependencies": {
-    "@capacitor/cli": "2.4.7",
-    "@electron-forge/cli": "^6.0.0-beta.54",
-    "@electron-forge/maker-deb": "^6.0.0-beta.54",
-    "@electron-forge/maker-rpm": "^6.0.0-beta.54",
-    "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
-    "@electron-forge/maker-zip": "^6.0.0-beta.54",
-    "electron": "12.0.7"
+    "@capacitor/cli": "2.4.7"
   },
-  "description": "An Ionic project",
-  "config": {
-    "forge": {
-      "packagerConfig": {},
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "EmailExtractor"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        }
-      ]
-    }
-  }
+  "description": "An Ionic project"
 }

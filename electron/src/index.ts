@@ -1,8 +1,10 @@
-import { app } from "electron";
+import { app, nativeTheme } from "electron";
 import { createCapacitorElectronApp } from "@capacitor-community/electron";
 
+var server = require('./server.js');
+nativeTheme.themeSource = 'dark';
 // The MainWindow object can be accessed via myCapacitorApp.getMainWindow()
-const myCapacitorApp = createCapacitorElectronApp();
+const myCapacitorApp = createCapacitorElectronApp({mainWindow: {windowOptions: {autoHideMenuBar: true}}});
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

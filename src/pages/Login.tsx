@@ -28,6 +28,7 @@ const Login: React.FC = () => {
   const [showLoading, setShowLoading] = useState<boolean>(false); // Stato del loading
   const history = useHistory<{ user: string; boxes: string[] }>();
 
+
   const checkData = () => {
     var email = "";
     var pwd = "";
@@ -39,6 +40,7 @@ const Login: React.FC = () => {
       return;
     }
 
+  
     pwd = "" + pwdRef.current!.value;
     if (pwd == "") {
       setErrorMessage("Inserisci una password");
@@ -60,6 +62,7 @@ const Login: React.FC = () => {
       }),
     })
       .then((response) => response.json())
+  
       .then((data) => {
         setShowLoading(false);
         if (JSON.parse(data).status == 1) {
@@ -68,12 +71,14 @@ const Login: React.FC = () => {
             state: { user: email, boxes: JSON.parse(data).boxes },
           });
         } else {
+    
           setErrorMessage("Utente o password errate");
           setError(true);
           clearInputs();
         }
       })
       .catch((serverError) => {
+    
         setShowLoading(false);
         setErrorMessage(
           "Impossibile comunicare con il server.\n" + serverError
@@ -94,7 +99,7 @@ const Login: React.FC = () => {
     if (pwdRef.current != undefined) pwdRef.current!.value = "";
   };
 
-  //clearInputs();
+
   return (
     <IonPage>
 

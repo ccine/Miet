@@ -92,18 +92,21 @@ const Pagina: React.FC = () => {
 
   // Funzione che invia i dati al server
   const Search = () => {
+    
     setCalculatedCont(false);
     setDrawChart(false);
+
+    
     var email;
     var object;
     var year;
     value = selectedValue;
-    var cont = 0;
+
 
     if (value != "multiple") {
       email = "" + emailRef.current!.value;
 
-      // Regex(=espressione regolare) di una mail
+      // Regex(=espressione regolare) di un indirizzo mail
       const re =
         /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
 
@@ -130,11 +133,21 @@ const Pagina: React.FC = () => {
     if (value != "custom") {
       year = "" + yearRef.current!.value;
 
+     
       if (year == "") {
         year = currentYear;
         yearRef.current!.value = "" + currentYear;
       }
     }
+
+    else{
+      if(selectedDateMin && selectedDateMax && selectedDateMin! > selectedDateMax!){
+        setErrorMessage("DataInizio deve essere minore di DataFine");
+        setError("date");
+        return;
+      }
+    }
+    
 
     // Disabilito il tasto di ricerca
     setShowLoading(true);
@@ -157,8 +170,10 @@ const Pagina: React.FC = () => {
         }),
       })
         .then((response) => response.json())
+        
         .then((data) => receivedData(data))
         .catch((serverError) => {
+          
           setShowLoading(false);
           setErrorMessage(
             "Impossibile comunicare con il server.\n" + serverError
@@ -187,8 +202,10 @@ const Pagina: React.FC = () => {
         }),
       })
         .then((response) => response.json())
+        
         .then((data) => receivedData(data))
         .catch((serverError) => {
+          
           setShowLoading(false);
           setErrorMessage(
             "Impossibile comunicare con il server.\n" + serverError
@@ -214,8 +231,10 @@ const Pagina: React.FC = () => {
         }),
       })
         .then((response) => response.json())
+        
         .then((data) => receivedData(data))
         .catch((serverError) => {
+          
           setShowLoading(false);
           setErrorMessage(
             "Impossibile comunicare con il server.\n" + serverError
@@ -262,7 +281,6 @@ const Pagina: React.FC = () => {
         storedDataCSV = "data:application/csv;charset=utf-8, ".concat(
           parameters!.str
         );
-        btnExportRef.current!.setAttribute("href", storedDataCSV);
         makePieChart(parameters!.emailList, parameters!.dataset);
 
         break;
@@ -580,7 +598,6 @@ const Pagina: React.FC = () => {
 
   // Funzione chiamata alla ricezione dei dati
   function receivedData(data: any) {
-    alert(data);
     setShowLoading(false);
     setCalculatedCont(true);
     data = JSON.parse(data);
@@ -589,6 +606,7 @@ const Pagina: React.FC = () => {
     createPreview(data);
     if(data.status == 1) 
       setDrawChart(true);
+    btnExportRef.current!.setAttribute("href", storedDataCSV);
   }
 
   // Cambia il tipo di ricerca (annuale, personalizzata)
@@ -608,6 +626,11 @@ const Pagina: React.FC = () => {
       selectedBoxes = [];
       history.goBack();
     }
+    else if (error == "date") {
+      clearDateStart();
+      clearDateEnd();
+    }
+    
     setError(null);
   };
 
@@ -749,6 +772,7 @@ const Pagina: React.FC = () => {
       }
     }
 
+    
     setPieChart({
       chartData: {
         labels: labels,

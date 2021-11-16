@@ -1,5 +1,4 @@
 const express = require("express");                               // Libreria per la creazione di un server Http
-const https = require("https");
 const cors = require("cors");
 var bodyParser = require("body-parser");                          // Libreria per il parsing del corpo delle richieste http
 const simpleParser = require("mailparser").simpleParser;          // Libreria per il parsing delle mail
@@ -758,9 +757,8 @@ app.post("/multiple", (req, res) => {
   imap.connect();
 });
 
-
-var server = https.createServer(app).listen(port), host, () => {
-  console.log(`Server Node listening at https://${host}:${port}`);
+var server = app.listen(port, host, () => {
+  console.log(`Server Node listening at http://${host}:${port}`);
 });
 
 function recAddSubjects(array) {
